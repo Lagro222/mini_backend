@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create .env file
+        run: cp .env.example .env
+
+      - name: Build and run with docker-compose
+        run: docker-compose up -d --build
+
+      - name: Run tests
+        run: docker-compose exec backend pytest
+
+      - name: Tear down
+        run: docker-compose down
