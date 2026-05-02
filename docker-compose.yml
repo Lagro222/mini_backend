@@ -1,8 +1,8 @@
 services:
   backend:
     build: ./backend
-    port:
-      -8000:8000
+    ports:
+      - 8000:8000
   db: 
     image: postgres:15-alpine 
     env_file:
